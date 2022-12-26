@@ -9,3 +9,21 @@ function getComputerChoice() {
     return "Scissors";
   }
 }
+
+function getPlayerChoice() {
+  let input = prompt("Rock, Paper, Scissors!");
+  switch (input.toLowerCase()) {
+    case "rock":
+      return "Rock";
+    case "paper":
+      return "Paper";
+    case "scissors":
+      return "Scissors";
+    default:
+      console.log("Enter a valid input");
+      return getPlayerChoice();
+  }
+}
+
+function playRound(playerSelection, computerSelection) {
+}
