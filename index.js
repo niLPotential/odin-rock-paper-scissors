@@ -2,20 +2,24 @@ let win = 0;
 let lose = 0;
 let draw = 0;
 
-game();
+const display = document.getElementById("display");
 
-function game() {
-  win = 0;
-  lose = 0;
-  draw = 0;
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.onclick = () => {
+    display.textContent = playRound(
+      getPlayerChoice(button.id),
+      getComputerChoice(),
+    );
+    if (win >= 5 || lose >= 5) {
+      gameover();
+    }
+  };
+});
 
-  for (let i = 0; i < 5; i++) {
-    console.log(playRound(getPlayerChoice(), getComputerChoice()));
-  }
-
-  console.log(
-    `Game Over! You won ${win} times, lost ${lose} times and drew ${draw} times`,
-  );
+function gameover() {
+  display.textContent =
+    `Game Over! You won ${win} times, lost ${lose} times and drew ${draw} times`;
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -45,8 +49,7 @@ function getComputerChoice() {
   return Math.floor(Math.random() * 3);
 }
 
-function getPlayerChoice() {
-  let input = prompt("Rock, Paper, Scissors!");
+function getPlayerChoice(input) {
   switch (input.toLowerCase()) {
     case "rock":
       return 0;
@@ -55,7 +58,7 @@ function getPlayerChoice() {
     case "scissors":
       return 2;
     default:
-      console.log("Enter a valid input");
+      display.textContent = "Enter a valid input";
       return getPlayerChoice();
   }
 }
